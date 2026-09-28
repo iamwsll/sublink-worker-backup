@@ -95,7 +95,7 @@ export function createApp(bindings = {}) {
             const singboxConfigVersion = resolveSingboxConfigVersion(requestedSingboxVersion, requestUserAgent);
 
             let baseConfig = singboxConfigVersion === '1.11' ? SING_BOX_CONFIG_V1_11 : SING_BOX_CONFIG;
-            if (configId) {
+            if (configId?.startsWith('singbox_')) {
                 const storage = requireConfigStorage(services.configStorage);
                 const storedConfig = await storage.getConfigById(configId);
                 if (storedConfig) {
@@ -160,7 +160,7 @@ export function createApp(bindings = {}) {
             const useWsllExpClash = shouldUseWsllExpClash(c.req.query('selectedRules'), selectedRules, customRules, customRuleGroups);
 
             let baseConfig;
-            if (configId) {
+            if (configId?.startsWith('clash_')) {
                 const storage = requireConfigStorage(services.configStorage);
                 baseConfig = await storage.getConfigById(configId);
             } else if (clashRuleBase) {
@@ -231,7 +231,7 @@ export function createApp(bindings = {}) {
             const lang = c.get('lang');
 
             let baseConfig;
-            if (configId) {
+            if (configId?.startsWith('surge_')) {
                 const storage = requireConfigStorage(services.configStorage);
                 baseConfig = await storage.getConfigById(configId);
             }
